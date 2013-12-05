@@ -1,0 +1,2 @@
+execve("./hello4.exe", ["./hello4.exe"], [/* 41 vars */]) = 0
+stat(NULL, NULL)                        = 6

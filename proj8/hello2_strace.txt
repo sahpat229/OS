@@ -1,0 +1,4 @@
+execve("./hello2.exe", ["./hello2.exe"], [/* 41 vars */]) = 0
+stat(NULL, NULL)                        = 6
+--- SIGSEGV (Segmentation fault) @ 0 (0) ---
++++ killed by SIGSEGV (core dumped) +++

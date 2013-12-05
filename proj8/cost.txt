@@ -1,0 +1,6 @@
+phadke@phadke-VAIO:proj8$ ./cost.exe 1
+time per empty loop: 5.345242 ns
+phadke@phadke-VAIO:proj8$ ./cost.exe 2
+time per empty function loop: 4.885831 ns
+phadke@phadke-VAIO:proj8$ ./cost.exe 3
+time per getpid loop: 11.776383 ns

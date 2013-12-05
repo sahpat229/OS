@@ -1,0 +1,3 @@
+execve("./hello3.exe", ["./hello3.exe"], [/* 41 vars */]) = 0
+stat(NULL, NULL)                        = 6
+write(0, NULL, 6 <unfinished ... exit status 1>
