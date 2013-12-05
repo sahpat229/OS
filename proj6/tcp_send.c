@@ -1,9 +1,11 @@
 /******************************
-Sharang Phadke
-11/10/2013
-ECE 357: OS
-
-tcp_send
+* Sharang Phadke
+* 11/10/2013
+* ECE 357: OS
+* 
+* Project 6 - sockets
+* 
+* tcp_send
 ******************************/
 
 #include <stdio.h>

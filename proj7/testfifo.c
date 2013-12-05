@@ -1,9 +1,11 @@
 /******************************
-Sharang Phadke
-11/15/2013
-ECE 357: OS
-
-testfifo
+* Sharang Phadke
+* 11/15/2013
+* ECE 357: OS
+* 
+* Project 7 - semaphores and locking
+* 
+* testfifo
 ******************************/
 
 #include <stdio.h>

@@ -1,9 +1,11 @@
 /******************************
-Sharang Phadke
-11/10/2013
-ECE 357: OS
-
-sem.c
+* Sharang Phadke
+* 11/10/2013
+* ECE 357: OS
+* 
+* Project 7 - semaphores and locking
+* 
+* sem.c
 ******************************/
 #ifndef _SEM_C_
 #define _SEM_C_

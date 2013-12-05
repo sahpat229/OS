@@ -1,9 +1,11 @@
 /******************************
-Sharang Phadke
-11/10/2013
-ECE 357: OS
-
-udp_client
+* Sharang Phadke
+* 11/10/2013
+* ECE 357: OS
+* 
+* Project 6 - sockets
+* 
+* udp_client
 ******************************/
 
 #include <stdio.h>

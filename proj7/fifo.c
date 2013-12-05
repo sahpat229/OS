@@ -1,9 +1,11 @@
 /******************************
-Sharang Phadke
-11/10/2013
-EHE 357: OS
-
-fifo.c
+* Sharang Phadke
+* 11/10/2013
+* ECE 357: OS
+* 
+* Project 7 - semaphores and locking
+* 
+* fifo.c
 ******************************/
 
 #ifndef _FIFO_C_
