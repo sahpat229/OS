@@ -13,6 +13,9 @@ sched.c
 
 
 void sched_init(void (*init_fn)()){
+    current_proc->pid = 1;
+    current_proc->ppid = 1;
+    current_proc->cpu_ticks = 0;
 }
 
 int sched_fork(){
@@ -28,12 +31,15 @@ void sched_nice(int niceval){
 }
 
 int sched_getpid(){
+    return current_proc->pid;
 }
 
 int sched_getppid(){
+    return current_proc->ppid;
 }
 
-long sched_gettick(){
+unsigned long sched_gettick(){
+    return current_proc->cpu_ticks;
 }
 
 void sched_ps(){

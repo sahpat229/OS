@@ -17,16 +17,20 @@ sched.h
 
 
 struct sched_proc {
-    //task_state
-    //priority
-    //accumulated
-    //cpu time
-    //stack address
-    //etc
+    int pid;
+    int ppid;
+    int task_state;
+    int priority;
+    int exit_code;
+    unsigned long cpu_ticks;
+    void *stack;
 };
 
 struct sched_waitq{
 };
+
+//  Current Process
+struct sched_proc * current_proc;
 
 //void sched_init(void (*init_fn))
 //  Initializes scheduling system, including a periodic interval timer, a
@@ -74,7 +78,7 @@ int sched_getppid();
 
 //long sched_gettick()
 //  Returns the number of timer ticks since startup
-long sched_gettick();
+unsigned long sched_gettick();
 
 //void sched_ps()
 //  Outputs to stdout a list of all of the current tasks, including sleeping
