@@ -29,8 +29,8 @@ struct sched_proc {
 struct sched_waitq{
 };
 
-//  Current Process
-struct sched_proc * current_proc;
+// Current Process
+extern struct sched_proc * current_proc;
 
 //void sched_init(void (*init_fn))
 //  Initializes scheduling system, including a periodic interval timer, a

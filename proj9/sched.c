@@ -9,13 +9,18 @@ sched.c
 #ifndef _SCHED_C_
 #define _SCHED_C_
 
+#include <stdlib.h>
+#include <stdio.h>
+#include "savectx64.h"
 #include "sched.h"
 
 
 void sched_init(void (*init_fn)()){
-    current_proc->pid = 1;
-    current_proc->ppid = 1;
-    current_proc->cpu_ticks = 0;
+    fprintf(stderr, "in sched_init\n");
+//    init_fn();
+//    current_proc->pid = 1;
+//    current_proc->ppid = 1;
+//    current_proc->cpu_ticks = 0;
 }
 
 int sched_fork(){
