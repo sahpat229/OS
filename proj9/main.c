@@ -13,7 +13,14 @@ main.c
 
 void testfn(){
     fprintf(stderr, "test\n");
-    while(1){}
+    switch (sched_fork()){
+        case 0:
+            fprintf(stderr, "in child\n");
+            sched_ps();
+        default:
+            fprintf(stderr, "in parent\n");
+            sched_ps();
+    }
     exit(0);
 }
 

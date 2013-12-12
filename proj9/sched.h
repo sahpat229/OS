@@ -9,7 +9,7 @@ sched.h
 #ifndef _SCHED_H_
 #define _SCHED_H_
 
-#define SCHED_NPROC 256
+#define SCHED_NPROC 257
 #define SCHED_READY 1
 #define SCHED_RUNNING 2
 #define SCHED_SLEEPING 3
@@ -25,12 +25,14 @@ struct sched_proc {
     int task_state;
     int priority;
     int exit_code;
-    unsigned long cpu_ticks;
+    int cpu_ticks;
+    int total_ticks;
     void *stack;
     struct savectx ctx;
 };
 
 struct sched_waitq{
+    struct sched_proc *proc_queue[SCHED_NPROC];
 };
 
 //void sched_init(void (*init_fn))
@@ -77,9 +79,9 @@ int sched_getpid();
 //  Returns the pid of the parent of the current task
 int sched_getppid();
 
-//long sched_gettick()
+//int sched_gettick()
 //  Returns the number of timer ticks since startup
-unsigned long sched_gettick();
+int sched_gettick();
 
 //void sched_ps()
 //  Outputs to stdout a list of all of the current tasks, including sleeping
