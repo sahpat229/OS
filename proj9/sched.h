@@ -14,6 +14,9 @@ sched.h
 #define SCHED_RUNNING 2
 #define SCHED_SLEEPING 3
 #define SCHED_ZOMBIE 4
+#define STACK_SIZE 65536
+
+#include "savectx64.h"
 
 
 struct sched_proc {
@@ -24,13 +27,11 @@ struct sched_proc {
     int exit_code;
     unsigned long cpu_ticks;
     void *stack;
+    struct savectx ctx;
 };
 
 struct sched_waitq{
 };
-
-// Current Process
-extern struct sched_proc * current_proc;
 
 //void sched_init(void (*init_fn))
 //  Initializes scheduling system, including a periodic interval timer, a

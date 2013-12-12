@@ -13,12 +13,12 @@ main.c
 
 void testfn(){
     fprintf(stderr, "test\n");
+    while(1){}
     exit(0);
 }
 
 
 int main(int argc, char **argv){
-    current_proc = malloc(sizeof(struct sched_proc));
     sched_init(testfn);
     //printf("pid: %d, ppid: %d, cpu_ticks: %l", sched_getpid(), sched_getppid(), sched_gettick());
 }
