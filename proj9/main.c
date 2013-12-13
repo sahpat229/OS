@@ -16,12 +16,13 @@ void testfn(){
     switch (sched_fork()){
         case 0:
             fprintf(stderr, "in child\n");
-            sched_ps();
+            exit(0);
         default:
             fprintf(stderr, "in parent\n");
-            sched_ps();
+            while (1){}
+            fprintf(stderr, "end of parent\n");
     }
-    exit(0);
+    //exit(0);
 }
 
 

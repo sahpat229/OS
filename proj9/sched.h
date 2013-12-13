@@ -23,9 +23,10 @@ struct sched_proc {
     int pid;
     int ppid;
     int task_state;
-    int priority;
+    int s_priority;
+    int d_priority;
     int exit_code;
-    int cpu_ticks;
+    int remaining_ticks;
     int total_ticks;
     void *stack;
     struct savectx ctx;
@@ -90,10 +91,10 @@ int sched_gettick();
 //      ppid
 //      current state
 //      base address of private stack area
-//      if SLEEPING, the address of the wait queue
 //      static priority
 //      dynamic priority
 //      total CPU time used (in ticks)
+//      if SLEEPING, the address of the wait queue
 //  This function serves as the signal handler for SIGABRT signals
 void sched_ps();
 
