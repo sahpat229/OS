@@ -17,15 +17,16 @@ void testfn(){
     switch (sched_fork()){
         case 0:
             fprintf(stderr, "%d\n", sched_getpid());
-            while (1){}
+            sched_exit(0);
+            while(1) {}
         default:
             fprintf(stderr, "%d\n", sched_getpid());
-            while (1){}
+            while(1) {}
     }
 }
 
 
 int main(int argc, char **argv){
     sched_init(testfn);
-    //printf("pid: %d, ppid: %d, cpu_ticks: %l", sched_getpid(), sched_getppid(), sched_gettick());
+    return 0;
 }
