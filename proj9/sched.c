@@ -87,7 +87,6 @@ int sched_fork(){
     }
 
     if ((new_proc = malloc(sizeof(struct sched_proc))) < 0){
-        perror("malloc failed in fork");
         sigprocmask(SIG_UNBLOCK, &mask, NULL);
         return -1;
     }
@@ -97,7 +96,6 @@ int sched_fork(){
     // allocate new stack
     if ((newsp = mmap(0, STACK_SIZE, PROT_READ|PROT_WRITE,
             MAP_PRIVATE|MAP_ANONYMOUS, 0, 0)) == MAP_FAILED){
-        perror("mmap failed in fork");
         sigprocmask(SIG_UNBLOCK, &mask, NULL);
         return -1;
     }
@@ -113,7 +111,6 @@ int sched_fork(){
 
     // switch context and return to child and parent
     if (savectx(&(new_proc->ctx)) == 0){ //parent
-        fprintf(stderr, "savectx == 0 in fork\n");
         new_proc->ctx.regs[JB_BP] += newsp - current_proc->stack;
         new_proc->ctx.regs[JB_SP] += newsp - current_proc->stack;
         sigprocmask(SIG_UNBLOCK, &mask, NULL);
@@ -121,7 +118,6 @@ int sched_fork(){
     }
 
     // child
-    fprintf(stderr, "savectx != 0 in fork\n");
     sigprocmask(SIG_UNBLOCK, &mask, NULL);
     return 0;
 }
@@ -185,10 +181,9 @@ void _sched_switch(){
     // mask signals
     sigemptyset(&mask);
     sigaddset(&mask, SIGVTALRM);
-    sigaddset(&mask, SIGUSR1);
-    sigaddset(&mask, SIGUSR2);
     sigprocmask(SIG_BLOCK, &mask, NULL);
 
+    current_proc->task_state = SCHED_READY;
 
     // choose a new process
     for (i = 1; i < SCHED_NPROC; i++){
@@ -202,25 +197,19 @@ void _sched_switch(){
     if (current_proc == new_proc)
         return;
 
-    // prepare new process for running    
-    current_proc->task_state = SCHED_READY;
-    current_proc = new_proc;
-    current_proc->task_state = SCHED_RUNNING;
-
     sched_ps();
     
     // save current context and make a context switch
-    if (savectx(&(current_proc->ctx)) == 0){ //parent
-        fprintf(stderr, "savectx == 0 in switch\n");
+    if (savectx(&(current_proc->ctx)) == 0){ // parent
+        current_proc = new_proc;
+        current_proc->task_state = SCHED_RUNNING;
         sigprocmask(SIG_UNBLOCK, &mask, NULL);
+        restorectx(&(current_proc->ctx), 1);
         return;
     }
 
     // child
-    fprintf(stderr, "savectx != 0 in switch\n");
     sigprocmask(SIG_UNBLOCK, &mask, NULL);
-    restorectx(&(current_proc->ctx), 1);
-    fprintf(stderr, "SHOULD NEVER REACH HERE IN switch\n");
 }
 
 void sched_tick(){

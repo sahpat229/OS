@@ -7,6 +7,7 @@ main.c
 ******************************/
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 #include "sched.h"
 
@@ -15,14 +16,12 @@ void testfn(){
     fprintf(stderr, "test\n");
     switch (sched_fork()){
         case 0:
-            fprintf(stderr, "in child\n");
-            exit(0);
-        default:
-            fprintf(stderr, "in parent\n");
+            fprintf(stderr, "%d\n", sched_getpid());
             while (1){}
-            fprintf(stderr, "end of parent\n");
+        default:
+            fprintf(stderr, "%d\n", sched_getpid());
+            while (1){}
     }
-    //exit(0);
 }
 
 
