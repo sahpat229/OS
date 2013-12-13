@@ -124,52 +124,53 @@ int sched_fork(){
 
 void sched_exit(int code){
     int i;
+    int *ecode;
+    int pid = current_proc->pid;
+    int ppid = current_proc->ppid;
 
-    for (i = 1; i < SCHED_NPROC; i++){
-        if (proc_queue[i] != NULL){ //TODO: join and statements
-            if (proc_queue[i]->pid == current_proc->ppid
-                    && proc_queue[i]->task_state == SCHED_SLEEPING){
-                proc_queue[i]->child_exit = code;
-                fprintf(stderr, "setting pid %d as ready\n", i);
-                proc_queue[i]->task_state = SCHED_READY;
-                break;
-            }
-        }
+    if (proc_queue[ppid] != NULL && proc_queue[ppid]->task_state == SCHED_SLEEPING){
+        if ((ecode = malloc(sizeof(int))) == NULL)
+            perror("malloc failed in sched_exit");
+
+        *ecode = code;
+        proc_queue[ppid]->waitq[pid] = ecode;
+        proc_queue[ppid]->task_state = SCHED_READY;
     }
 
+    // kill yourself
     current_proc->exit_code = code;
-    fprintf(stderr, "setting pid %d as zombie\n", current_proc->pid);
     current_proc->task_state = SCHED_ZOMBIE;
     _sched_switch();
 }
 
 int sched_wait(int *exit_code){
-    int i, foundChild = 0;
-    struct sched_proc *wait_proc = NULL;
+    int i, foundChild = 0, waitpid = 0;
 
     // clean up the first zombie child found
     for (i = 1; i < SCHED_NPROC; i++){
-        if (proc_queue[i] != NULL){
-            if (proc_queue[i]->ppid == current_proc->pid){
-                if (proc_queue[i]->task_state == SCHED_ZOMBIE){
-                    *exit_code = proc_queue[i]->exit_code;
-                    if (munmap(proc_queue[i]->stack, STACK_SIZE) < 0)
-                        perror("munmap failed in sched_wait");
-                    free(proc_queue[i]);
-                    proc_queue[i] = NULL;
-                    return 0;
-                }
-                else
-                    wait_proc = proc_queue[i];
+        if (proc_queue[i] != NULL && proc_queue[i]->ppid == current_proc->pid){
+            if (proc_queue[i]->task_state == SCHED_ZOMBIE){
+
+                *exit_code = proc_queue[i]->exit_code;
+                if (munmap(proc_queue[i]->stack, STACK_SIZE) < 0)
+                    perror("munmap failed in sched_wait");
+                free(current_proc->waitq[i]);
+                current_proc->waitq[i] = NULL;
+                free(proc_queue[i]);
+                proc_queue[i] = NULL;
+                return 0;
             }
+            else
+                waitpid = i;
         }
     }
 
     // wait for non-zombie children to finish
-    if (wait_proc != NULL){
+    if (waitpid != 0){
         current_proc->task_state = SCHED_SLEEPING;
-        _sched_switch();    //return code for sleeping processes set in child's exit
-        *exit_code = current_proc->child_exit;
+        _sched_switch();
+        *exit_code = *(current_proc->waitq[waitpid]);
+        fprintf(stderr, "returning exit code of %d\n", *exit_code);
         return 0;
     }
 
@@ -199,7 +200,6 @@ int sched_gettick(){
 
 void sched_ps(){
     int i;
-    fprintf(stderr, "current pid: %d\n", current_proc->pid);
     fprintf(stderr, "|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |\n");
     for (i = 1; i < SCHED_NPROC; i++){
         if (proc_queue[i] != NULL){
@@ -223,8 +223,7 @@ void sched_ps(){
 }
 
 void _sched_switch(){
-    int i;
-    struct sched_proc *new_proc;
+    int newpid;
     sigset_t mask;
     
     // mask signals
@@ -233,32 +232,26 @@ void _sched_switch(){
     sigprocmask(SIG_BLOCK, &mask, NULL);
 
     // choose a new proces
-    for (i = 1; i < SCHED_NPROC; i++){
-        if (proc_queue[i] != NULL){
-            if(proc_queue[i]->task_state == SCHED_READY){
-                fprintf(stderr, "setting pid %d as new_proc\n", i);
-                new_proc = proc_queue[i];
-                break;
-            }
-        }
+    for (newpid = 1; newpid < SCHED_NPROC; newpid++){
+        if (proc_queue[newpid] != NULL && proc_queue[newpid]->task_state == SCHED_READY)
+            break;
     }
 
     sched_ps();
 
-    if (current_proc == new_proc)
+    if (newpid == SCHED_NPROC){
+        fprintf(stderr, "IM THE ONLY ONE HERE. I GUESS ILL RUN AGAIN\n");
         return;
-    else if (current_proc->task_state == SCHED_RUNNING){
-        fprintf(stderr, "setting pid %d as ready\n", current_proc->pid);
-        current_proc->task_state = SCHED_READY;
     }
+
+    // TODO: this needs to move to the top
+    if (current_proc->task_state == SCHED_RUNNING)
+        current_proc->task_state = SCHED_READY;
 
     // save current context and make a context switch
     if (savectx(&(current_proc->ctx)) == 0){ // parent
-        current_proc = new_proc;
-        if (current_proc->task_state == SCHED_READY){
-            fprintf(stderr, "setting pid %d as running\n", current_proc->pid);
-            current_proc->task_state = SCHED_RUNNING;
-        }
+        current_proc = proc_queue[newpid];
+        current_proc->task_state = SCHED_RUNNING;
         sigprocmask(SIG_UNBLOCK, &mask, NULL);
         restorectx(&(current_proc->ctx), 1);
         return;

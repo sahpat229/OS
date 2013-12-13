@@ -25,10 +25,10 @@ struct sched_proc {
     int task_state;
     int s_priority;
     int d_priority;
-    int exit_code;
-    int child_exit;
     int remaining_ticks;
     int total_ticks;
+    int exit_code;
+    int *waitq[SCHED_NPROC];
     void *stack;
     struct savectx ctx;
 };
