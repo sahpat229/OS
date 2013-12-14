@@ -1,0 +1,248 @@
+PID 1 START
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1          0          0        0 0x7fa921d62000  RUNNING
+PID 2 IS START
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       10 0x7fa921d62000  RUNNING
+        3        2          0         -2        0 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       22 0x7fa921d62000  RUNNING
+        3        2          0         -4        0 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       34 0x7fa921d62000  RUNNING
+        3        2          0         -6        0 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       46 0x7fa921d62000  RUNNING
+        3        2          0         -8        0 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       58 0x7fa921d62000  RUNNING
+        3        2          0        -10        0 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       70 0x7fa921d62000  RUNNING
+        3        2          0        -12        0 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       82 0x7fa921d62000    READY
+        3        2          0          0        0 0x7fa921d52000  RUNNING
+PID 3 IS START
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       82 0x7fa921d62000  RUNNING
+        3        2         10         -1       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0       94 0x7fa921d62000  RUNNING
+        3        2         10         -2       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0      106 0x7fa921d62000  RUNNING
+        3        2         10         -3       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0      118 0x7fa921d62000  RUNNING
+        3        2         10         -4       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0      130 0x7fa921d62000  RUNNING
+        3        2         10         -5       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0      142 0x7fa921d62000  RUNNING
+        3        2         10         -6       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000 SLEEPING 0x6020c0
+        2        1        -10          0      154 0x7fa921d62000  RUNNING
+        3        2         10         -7       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0        0 0x7fa921d80000  RUNNING
+        2        1        -10          0      158 0x7fa921d62000   ZOMBIE
+        3        2         10         -8       10 0x7fa921d52000    READY
+pid 2 returned with 1
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       10 0x7fa921d80000  RUNNING
+        3        2         10         -9       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       20 0x7fa921d80000  RUNNING
+        3        2         10        -10       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       30 0x7fa921d80000  RUNNING
+        3        2         10        -11       10 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       40 0x7fa921d80000    READY
+        3        2         10          0       10 0x7fa921d52000  RUNNING
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       40 0x7fa921d80000  RUNNING
+        3        2         10         -1       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       50 0x7fa921d80000  RUNNING
+        3        2         10         -2       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       60 0x7fa921d80000  RUNNING
+        3        2         10         -3       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       70 0x7fa921d80000  RUNNING
+        3        2         10         -4       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       80 0x7fa921d80000  RUNNING
+        3        2         10         -5       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0       90 0x7fa921d80000  RUNNING
+        3        2         10         -6       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      100 0x7fa921d80000  RUNNING
+        3        2         10         -7       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      110 0x7fa921d80000  RUNNING
+        3        2         10         -8       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      120 0x7fa921d80000  RUNNING
+        3        2         10         -9       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      130 0x7fa921d80000  RUNNING
+        3        2         10        -10       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      140 0x7fa921d80000  RUNNING
+        3        2         10        -11       17 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      150 0x7fa921d80000    READY
+        3        2         10          0       17 0x7fa921d52000  RUNNING
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      150 0x7fa921d80000  RUNNING
+        3        2         10         -1       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      160 0x7fa921d80000  RUNNING
+        3        2         10         -2       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      170 0x7fa921d80000  RUNNING
+        3        2         10         -3       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      180 0x7fa921d80000  RUNNING
+        3        2         10         -4       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      190 0x7fa921d80000  RUNNING
+        3        2         10         -5       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      200 0x7fa921d80000  RUNNING
+        3        2         10         -6       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      210 0x7fa921d80000  RUNNING
+        3        2         10         -7       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      220 0x7fa921d80000  RUNNING
+        3        2         10         -8       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      230 0x7fa921d80000  RUNNING
+        3        2         10         -9       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      240 0x7fa921d80000  RUNNING
+        3        2         10        -10       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      250 0x7fa921d80000  RUNNING
+        3        2         10        -11       24 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      260 0x7fa921d80000    READY
+        3        2         10          0       24 0x7fa921d52000  RUNNING
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      260 0x7fa921d80000  RUNNING
+        3        2         10         -1       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      270 0x7fa921d80000  RUNNING
+        3        2         10         -2       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      280 0x7fa921d80000  RUNNING
+        3        2         10         -3       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      290 0x7fa921d80000  RUNNING
+        3        2         10         -4       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      300 0x7fa921d80000  RUNNING
+        3        2         10         -5       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      310 0x7fa921d80000  RUNNING
+        3        2         10         -6       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      320 0x7fa921d80000  RUNNING
+        3        2         10         -7       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      330 0x7fa921d80000  RUNNING
+        3        2         10         -8       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      340 0x7fa921d80000  RUNNING
+        3        2         10         -9       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      350 0x7fa921d80000  RUNNING
+        3        2         10        -10       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      360 0x7fa921d80000  RUNNING
+        3        2         10        -11       31 0x7fa921d52000    READY
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      370 0x7fa921d80000    READY
+        3        2         10          0       31 0x7fa921d52000  RUNNING
+
+|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |
+        1        0          0          0      370 0x7fa921d80000  RUNNING
+        3        2         10         -1       38 0x7fa921d52000    READY
+

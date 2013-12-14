@@ -18,8 +18,8 @@ sched.c
 #include "adjstack.c"
 #include "sched.h"
 
-#define TICK_TIME 2 //debug
-#define TICK_UTIME 0 //debug 100000
+#define TICK_TIME 0
+#define TICK_UTIME 100000
 
 
 int total_ticks = 0;
@@ -150,7 +150,6 @@ int sched_wait(int *exit_code){
     for (i = 1; i < SCHED_NPROC; i++){
         if (proc_queue[i] != NULL && proc_queue[i]->ppid == current_proc->pid){
             if (proc_queue[i]->task_state == SCHED_ZOMBIE){
-
                 *exit_code = proc_queue[i]->exit_code;
                 if (munmap(proc_queue[i]->stack, STACK_SIZE) < 0)
                     perror("munmap failed in sched_wait");
@@ -170,7 +169,14 @@ int sched_wait(int *exit_code){
         current_proc->task_state = SCHED_SLEEPING;
         _sched_switch();
         *exit_code = *(current_proc->waitq[waitpid]);
-        fprintf(stderr, "returning exit code of %d\n", *exit_code);
+
+        // clean up zombie
+        if (munmap(proc_queue[waitpid]->stack, STACK_SIZE) < 0)
+            perror("munmap failed in sched_wait");
+        free(current_proc->waitq[waitpid]);
+        current_proc->waitq[waitpid] = NULL;
+        free(proc_queue[waitpid]);
+        proc_queue[waitpid] = NULL;
         return 0;
     }
 
@@ -200,7 +206,7 @@ int sched_gettick(){
 
 void sched_ps(){
     int i;
-    fprintf(stderr, "|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |\n");
+    fprintf(stderr, "\n|   pid  |  ppid  |  static  |  dynamic |  ticks |     stack    |  state |  wait_queue  |\n");
     for (i = 1; i < SCHED_NPROC; i++){
         if (proc_queue[i] != NULL){
             fprintf(stderr, "%9d%9d%11d%11d%9d %p",
@@ -223,7 +229,7 @@ void sched_ps(){
 }
 
 void _sched_switch(){
-    int newpid;
+    int i, newpid = 0, nicest = 21;
     sigset_t mask;
     
     // mask signals
@@ -231,27 +237,29 @@ void _sched_switch(){
     sigaddset(&mask, SIGVTALRM);
     sigprocmask(SIG_BLOCK, &mask, NULL);
 
-    // choose a new proces
-    for (newpid = 1; newpid < SCHED_NPROC; newpid++){
-        if (proc_queue[newpid] != NULL && proc_queue[newpid]->task_state == SCHED_READY)
-            break;
-    }
-
-    sched_ps();
-
-    if (newpid == SCHED_NPROC){
-        fprintf(stderr, "IM THE ONLY ONE HERE. I GUESS ILL RUN AGAIN\n");
-        return;
-    }
-
-    // TODO: this needs to move to the top
     if (current_proc->task_state == SCHED_RUNNING)
         current_proc->task_state = SCHED_READY;
+
+    // choose a new proces
+    for (i = 1; i < SCHED_NPROC; i++){
+        if (proc_queue[i] != NULL && proc_queue[i]->task_state == SCHED_READY){
+            int p = proc_queue[i]->s_priority + proc_queue[i]->d_priority;
+            if (p < nicest){
+                nicest = p;
+                newpid = i;
+            }
+            else
+                proc_queue[i]->d_priority -= ((19 - proc_queue[i]->s_priority)/10 + 1);
+        }
+    }
 
     // save current context and make a context switch
     if (savectx(&(current_proc->ctx)) == 0){ // parent
         current_proc = proc_queue[newpid];
+        current_proc->d_priority = 0;
+        current_proc->remaining_ticks = (21 - current_proc->s_priority)/4 + 5;
         current_proc->task_state = SCHED_RUNNING;
+        sched_ps();
         sigprocmask(SIG_UNBLOCK, &mask, NULL);
         restorectx(&(current_proc->ctx), 1);
         return;
@@ -263,10 +271,11 @@ void _sched_switch(){
 
 void _sched_tick(){
     total_ticks++;
-    current_proc->remaining_ticks--;
     current_proc->total_ticks++;
-    //if (logic to see whether we should switch){
-    _sched_switch();
+
+    if (--(current_proc->remaining_ticks) == 0){
+        _sched_switch();
+    }
 }
 
 #endif //_SCHED_C_

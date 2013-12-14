@@ -11,19 +11,35 @@ main.c
 #include <stdio.h>
 #include "sched.h"
 
-int t = 0;
 
 void testfn(){
-    fprintf(stderr, "test\n");
-    switch (sched_fork()){
+    int pid1, pid2;
+    int retval = 0;
+    double c1 = 0, c2 = 0;
+
+    fprintf(stderr, "PID %d START\n", sched_getpid());
+
+    switch (pid1 = sched_fork()){
         case 0:
-            fprintf(stderr, "YO PID %d IS RUNNING\n", sched_getpid());
-            t = 1;
-            sched_exit(0);
-            while(1) { fprintf(stderr, "THIS PROCESS SHOULD BE DEAD!\n");}
+            fprintf(stderr, "PID %d IS START\n", sched_getpid());
+            switch (pid2 = sched_fork()){
+                case 0:
+                    pid2 = sched_getpid();
+                    fprintf(stderr, "PID %d IS START\n", sched_getpid());
+                    sched_nice(10);
+                    for(c2 = 0; c2 < 1E10; c2 += 1) {}
+                    sched_exit(2);
+                    
+                default:
+                    pid1 = sched_getpid();
+                    sched_nice(-10);
+                    for(c1 = 0; c1 < 5E9; c1 += 1) {}
+                    sched_exit(1);
+            }
+   
         default:
-            fprintf(stderr, "YO PID %d IS RUNNING\n", sched_getpid());
-            fprintf(stderr, "t = %d\n", t);
+            sched_wait(&retval);
+            fprintf(stderr, "pid %d returned with %d\n", pid1, retval);
             while(1) {}
     }
 }
